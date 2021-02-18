@@ -43,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   credentials: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
+    textAlign: 'center'
   }
 }));
 
@@ -76,7 +77,7 @@ export default function SignUp() {
             value={organizationName}
             onChange={event => setOrganizationName(event.target.value)}
           />
-          <Grid container spacing={2} direction="column" className={classes.credentials}>
+          <Grid container spacing={2} direction="column" className={classes.credentials} alignItems="stretch">
             <Grid item>
               <Typography component="subtitle1">
                 Admin credentials
