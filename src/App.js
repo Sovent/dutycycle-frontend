@@ -1,8 +1,8 @@
-import SignUp from './SignUp';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Main from './Main';
 import { WithAuthentication, PrivateRoute } from './Auth';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 function App() {
   return (

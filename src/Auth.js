@@ -12,7 +12,7 @@ export function useAuthContext() {
 
 function useAuthContextSetup() {
   const [organization, setOrganization] = useState(null);
-  const [isAuthenticationInProcess, setIsAuthenticationInProcess] = useState(false);
+  const [isAuthenticationInProcess, setIsAuthenticationInProcess] = useState(true);
 
   const authenticate = async () => {
     setIsAuthenticationInProcess(true);
