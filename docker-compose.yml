@@ -1,0 +1,37 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      REACT_APP_API_URL: api
+    depends_on:
+      - api
+    volumes:
+      - .:/usr/app
+  nginx:
+    image: sovent/dutycyclenginx
+    depends_on:
+      - api
+      - frontend
+    ports:
+      - "2220:80"
+  migrations:
+    image: sovent/dutycyclemigrations
+    depends_on:
+      - db
+    environment:
+      ConnectionString: Host=db;Database=postgres;Username=postgres;Password=postgres_password
+  api:
+    image: sovent/dutycycleapi
+    depends_on:
+      - migrations
+      - db
+    environment:
+      ConnectionString: Host=db;Database=postgres;Username=postgres;Password=postgres_password
+      ASPNETCORE_URLS: http://+:5000
+  db:
+    image: 'postgres'
+    environment:
+      POSTGRES_PASSWORD: postgres_password
