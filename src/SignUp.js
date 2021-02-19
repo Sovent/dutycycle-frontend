@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { createOrganization } from './api';
+import { useAuthContext } from './Auth';
 
 function Copyright() {
   return (
@@ -65,7 +66,7 @@ export default function SignUp() {
         </Typography>
         <form className={classes.form} onSubmit={(e) => {
           e.preventDefault();
-          createOrganization(organizationName, email, password)
+          createOrganization(organizationName, email, password);
         }}>
           <TextField
             variant="outlined"
