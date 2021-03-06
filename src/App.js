@@ -6,8 +6,8 @@ import SignUp from './SignUp';
 
 function App() {
   return (
-    <WithAuthentication>
-      <BrowserRouter>
+    <BrowserRouter>
+      <WithAuthentication>
         <Switch>
           <PrivateRoute exact path="/">
             <Main />
@@ -19,8 +19,8 @@ function App() {
             <SignUp />
           </Route>
         </Switch>
-      </BrowserRouter>
-    </WithAuthentication>
+      </WithAuthentication>
+    </BrowserRouter>
   );
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext, useEffect, useState, createContext } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, useHistory } from "react-router-dom";
 import { getCurrentOrganization } from "./api";
 import Preloader from './Preloader';
 
@@ -13,11 +13,14 @@ export function useAuthContext() {
 function useAuthContextSetup() {
   const [organization, setOrganization] = useState(null);
   const [isAuthenticationInProcess, setIsAuthenticationInProcess] = useState(true);
+  const history = useHistory();
 
   const authenticate = async () => {
     setIsAuthenticationInProcess(true);
-    const organizationData = await getCurrentOrganization();
-    setOrganization(organizationData);
+    const organizationData = await getCurrentOrganization(() => history.push("/signin"));
+    if (!!organizationData) {
+      setOrganization(organizationData);
+    }
     setIsAuthenticationInProcess(false);
   }
 
@@ -29,32 +32,19 @@ function useAuthContextSetup() {
 }
 
 export function PrivateRoute({ children, ...rest }) {
-  let { organization } = useAuthContext();
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        organization ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/signin",
-              state: { from: location }
-            }}
-          />
-        )
-      }
-    />
-  );
-}
+  const { organization, authenticate } = useAuthContext();
+  if (!organization) {
+    authenticate();
+    return (<Preloader />)
+  }
+  return (<Route {...rest}>{children}</Route>)
+};
 
 export function WithAuthentication({ children }) {
   const authContextValue = useAuthContextSetup();
-  useEffect(() => authContextValue.authenticate(), []);
   return (
     <authContext.Provider value={authContextValue}>
-      {authContextValue.isAuthenticationInProcess ? (<Preloader />) : children}
+      {children}
     </authContext.Provider>
   );
 };

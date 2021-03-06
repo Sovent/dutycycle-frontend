@@ -13,11 +13,15 @@ export const createOrganization = (organizationName, adminEmail, adminPassword) 
   .post("organizations", { Name: organizationName, AdminCredentials: { Email: adminEmail, Password: adminPassword } })
   .then(response => response.data);
 
-export const getCurrentOrganization = () =>
+export const getCurrentOrganization = (onUnauthorized) =>
   instance
     .get("organizations/current", axiosConfig)
     .then(response => response.data)
-    .catch(error => console.log(error));
+    .catch(error => {
+      if (error.response.status === 401) {
+        onUnauthorized();
+      }
+    });
 
 export const signIn = (login, password) => 
   instance
