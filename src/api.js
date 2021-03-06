@@ -26,4 +26,5 @@ export const getCurrentOrganization = (onUnauthorized) =>
 export const signIn = (login, password) => 
   instance
   .post("users/signin", { Email: login, Password: password }, axiosConfig)
-  .then(_ => ({ success: true }));
+  .then(_ => ({ success: true }))
+  .catch(error => console.log(error));

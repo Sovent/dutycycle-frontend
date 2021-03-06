@@ -47,9 +47,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignUpPresenter({
-  organizationName,
-  setOrganizationName,
+export default function SignInPresenter({
   email,
   setEmail,
   password,
@@ -65,28 +63,13 @@ export default function SignUpPresenter({
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Create organization
+          Sign in
         </Typography>
         <form className={classes.form} onSubmit={(e) => {
           e.preventDefault();
           onSubmit();
         }}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="organizationName"
-            label="Organization name"
-            name="organizationName"
-            value={organizationName}
-            onChange={event => setOrganizationName(event.target.value)}
-          />
           <Grid container spacing={2} direction="column" className={classes.credentials} alignItems="stretch">
-            <Grid item>
-              <Typography component="subtitle1">
-                Admin credentials
-              </Typography>
-            </Grid>
             <Grid item>
               <TextField
                 variant="outlined"
@@ -122,15 +105,8 @@ export default function SignUpPresenter({
             color="primary"
             className={classes.submit}
           >
-            Create and sign up
+            Sign in
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="/signin" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={5}>

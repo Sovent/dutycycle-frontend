@@ -7,7 +7,7 @@ export default function Main() {
   const {organization} = useAuthContext();
   return (
     <Container component="main" maxWidth="md">
-        <Typography variant="h3">Groups of {organization?.Name}</Typography>
+        <Typography variant="h3">Groups of {organization.name}</Typography>
         <Table>
           <TableHead>
             <TableCell>Group name</TableCell>
