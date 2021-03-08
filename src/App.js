@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Main from './Main';
 import { WithAuthentication, PrivateRoute } from './Auth';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import GroupsList from './GroupsList';
+import Group from './Group';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <WithAuthentication>
         <Switch>
           <PrivateRoute exact path="/">
-            <Main />
+            <GroupsList />
           </PrivateRoute>
           <Route path="/signin">
             <SignIn />
@@ -18,6 +19,9 @@ function App() {
           <Route path="/signup">
             <SignUp />
           </Route>
+          <PrivateRoute path="/groups/:groupId">
+            <Group />
+          </PrivateRoute>
         </Switch>
       </WithAuthentication>
     </BrowserRouter>

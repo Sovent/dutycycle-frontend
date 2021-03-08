@@ -28,3 +28,9 @@ export const signIn = (login, password) =>
   .post("users/signin", { Email: login, Password: password }, axiosConfig)
   .then(_ => ({ success: true }))
   .catch(error => console.log(error));
+
+export const getGroups = () =>
+  instance
+    .get("groups", axiosConfig)
+    .then(response => response.data)
+    .catch(error => console.log(error));
